@@ -1,17 +1,10 @@
 package com.fastcampus.projectboard.domain;
 
-import com.fastcampus.projectboard.config.JpaConfig;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
@@ -21,9 +14,8 @@ import java.util.Objects;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
-@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class ArticleComment {
+public class ArticleComment extends AuditingFields {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,14 +28,6 @@ public class ArticleComment {
     @Column(nullable = false, length = 500)
     private String content;     // 내용
 
-    @CreatedDate
-    private LocalDateTime createdAt;    // 생성일시
-    @CreatedBy
-    private String createdBy;           // 생성자
-    @LastModifiedDate
-    private LocalDateTime modifiedAt;   // 수정일시
-    @LastModifiedBy
-    private String modifiedBy;          // 수정자
 
     protected ArticleComment() {}
 
